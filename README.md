@@ -20,3 +20,7 @@ suite.add("RegExp#test", () => {
 
 suite.run();
 ```
+
+## Output
+
+![Screenshot](./screenshot.png)
