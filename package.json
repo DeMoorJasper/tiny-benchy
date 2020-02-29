@@ -1,6 +1,10 @@
 {
-  "name": "benchy",
+  "name": "tiny-benchy",
+  "description": "A tiny benchmarking utility",
   "version": "1.0.0",
   "main": "main.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "node ./example"
+  }
 }
