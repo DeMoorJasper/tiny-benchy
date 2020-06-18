@@ -3,6 +3,18 @@
   "description": "A tiny benchmarking utility",
   "version": "1.0.0",
   "main": "main.js",
+  "author": "DeMoorJasper <jasperdemoor@gmail.com>",
+  "repository": "git://github.com/DeMoorJasper/tiny-benchy.git",
+  "homepage": "https://github.com/DeMoorJasper/tiny-benchy",
+  "bugs": {
+    "url": "https://github.com/DeMoorJasper/tiny-benchy/issues",
+    "email": "jasperdemoor@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "DeMoorJasper"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "test": "node ./example"
