@@ -1,7 +1,7 @@
 {
   "name": "tiny-benchy",
   "description": "A tiny benchmarking utility",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "main.js",
   "author": "DeMoorJasper <jasperdemoor@gmail.com>",
   "repository": "git://github.com/DeMoorJasper/tiny-benchy.git",
