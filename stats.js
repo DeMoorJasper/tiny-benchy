@@ -52,8 +52,8 @@ module.exports = class Stats {
   }
 
   toString() {
-    return `${round(this.opsPerSec(), 2)} opts/sec (mean: ${formatTime(
+    return `${round(this.opsPerSec(), 2).toLocaleString()} opts/sec (mean: ${formatTime(
       this.mean()
-    )}, stddev: ${formatTime(this.stddev())}, ${this.samples()} samples)`;
+    )}, stddev: ${formatTime(this.stddev())}, ${this.samples().toLocaleString()} samples)`;
   }
 };
