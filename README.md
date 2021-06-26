@@ -23,7 +23,10 @@ suite.run();
 
 ## Output
 
-![Screenshot](./screenshot.png)
+```
+rank 1:  RegExp#test-async 1,033,057.85 opts/sec (mean: 968ns, stddev: 0.002ms, 50 samples)
+rank 2:  RegExp#test 552,486.19 opts/sec (mean: 0.002ms, stddev: 0.005ms, 50 samples)
+```
 
 ## API
 
