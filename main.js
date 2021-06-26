@@ -28,13 +28,23 @@ module.exports = class Benchmark {
   }
 
   async run() {
-    if (!this.tests.length) {
+    const testNum = this.tests.length;
+    if (!testNum) {
       throw new Error("No tests have been defined!");
     }
 
-    for (let test of this.tests) {
-      let testResults = await runTest(test.callback, test.iterations);
-      console.log(test.title, testResults.toString());
+    const testResultsArray = new Array(testNum);
+    for (let iTest = 0; iTest < testNum; ++iTest) {
+      const test = this.tests[iTest];
+      const testResult = await runTest(test.callback, test.iterations);
+      testResultsArray[iTest] = testResult;
+    }
+
+    const sotredTestResultsArray = testResultsArray.sort((test1, test2) => test2.opsPerSec() - test1.opsPerSec());
+
+    for (let iRank = 0; iRank < testNum; ++iRank) {
+      const iTest = sotredTestResultsArray.indexOf(testResultsArray[iRank]);
+      console.log(`rank ${iRank+1}: `, this.tests[iTest].title, sotredTestResultsArray[iTest].toString());
     }
   }
 };
