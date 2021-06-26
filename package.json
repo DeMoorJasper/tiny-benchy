@@ -3,6 +3,7 @@
   "description": "A tiny benchmarking utility",
   "version": "1.0.2",
   "main": "main.js",
+  "types": "./main.d.ts",
   "author": "DeMoorJasper <jasperdemoor@gmail.com>",
   "repository": "git://github.com/DeMoorJasper/tiny-benchy.git",
   "homepage": "https://github.com/DeMoorJasper/tiny-benchy",
