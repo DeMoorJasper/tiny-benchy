@@ -83,9 +83,13 @@ export class Benchmark {
       }
     );
 
-    for (let result of mappedResults) {
-      console.log(`${result.title}: ${result.stats.toString()}`);
-    }
+    mappedResults
+      .sort((a, b) => {
+        return b.stats.opsPerSec() - a.stats.opsPerSec();
+      })
+      .forEach((result, i) => {
+        console.log(`#${i + 1} ${result.title}: ${result.stats.toString()}`);
+      });
 
     return mappedResults;
   }
