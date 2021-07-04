@@ -1,4 +1,4 @@
-const Benchmark = require("./");
+const { Benchmark } = require("./");
 
 const suite = new Benchmark();
 

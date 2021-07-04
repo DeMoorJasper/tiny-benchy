@@ -1,9 +1,9 @@
 {
   "name": "tiny-benchy",
   "description": "A tiny benchmarking utility",
-  "version": "1.0.2",
-  "main": "main.js",
-  "types": "./main.d.ts",
+  "version": "2.0.0",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "author": "DeMoorJasper <jasperdemoor@gmail.com>",
   "repository": "git://github.com/DeMoorJasper/tiny-benchy.git",
   "homepage": "https://github.com/DeMoorJasper/tiny-benchy",
@@ -16,8 +16,18 @@
       "name": "DeMoorJasper"
     }
   ],
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "license": "MIT",
   "scripts": {
+    "build": "tsc src/* --outDir dist --declaration",
     "test": "node ./example"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "typescript": "^4.3.5"
   }
 }

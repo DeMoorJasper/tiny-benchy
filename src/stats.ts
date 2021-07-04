@@ -1,9 +1,9 @@
-const round = (val, points = 3) => {
+export const round = (val, points = 3) => {
   return Math.round(val * 10 ** points) / 10 ** points;
 };
 
-const formatTime = val => {
-  let res = val * 1e6;
+export const formatTime = (val) => {
+  let res = val;
 
   if (res < 1000) {
     return `${round(res)}ns`;
@@ -18,7 +18,12 @@ const formatTime = val => {
   return `${round(res)}secs`;
 };
 
-module.exports = class Stats {
+export class Stats {
+  xs: Array<number>;
+  x0: number;
+  x1: number;
+  x2: number;
+
   constructor() {
     this.xs = [];
     this.x0 = this.x1 = this.x2 = 0;
@@ -48,12 +53,17 @@ module.exports = class Stats {
   }
 
   opsPerSec() {
-    return 1e3 / this.mean();
+    return 1e9 / this.mean();
   }
 
   toString() {
-    return `${round(this.opsPerSec(), 2).toLocaleString()} opts/sec (mean: ${formatTime(
+    return `${round(
+      this.opsPerSec(),
+      2
+    ).toLocaleString()} opts/sec (mean: ${formatTime(
       this.mean()
-    )}, stddev: ${formatTime(this.stddev())}, ${this.samples().toLocaleString()} samples)`;
+    )}, stddev: ${formatTime(
+      this.stddev()
+    )}, ${this.samples().toLocaleString()} samples)`;
   }
-};
+}
