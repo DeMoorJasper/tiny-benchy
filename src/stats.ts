@@ -57,9 +57,8 @@ export class Stats {
   }
 
   toString() {
-    return `${round(
-      this.opsPerSec(),
-      2
+    return `${Math.round(
+      this.opsPerSec()
     ).toLocaleString()} opts/sec (mean: ${formatTime(
       this.mean()
     )}, stddev: ${formatTime(
