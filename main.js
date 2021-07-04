@@ -1,13 +1,15 @@
 const Stats = require("./stats");
 
+const performance = (typeof window === "object" && "performance" in window) ? window.performance : require("perf_hooks").performance
+
 async function runTest(callback, iterations) {
   let stats = new Stats();
 
   for (let i = 0; i < iterations; i++) {
-    let start = process.hrtime();
+    const start = performance.now();
     await callback();
-    let took = process.hrtime(start);
-    stats.add(took[0] * 1e9 + took[1]);
+    const end = performance.now();
+    stats.add(end - start);
   }
 
   return stats;

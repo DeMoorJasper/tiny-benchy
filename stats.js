@@ -3,7 +3,7 @@ const round = (val, points = 3) => {
 };
 
 const formatTime = val => {
-  let res = val;
+  let res = val * 1e6;
 
   if (res < 1000) {
     return `${round(res)}ns`;
@@ -48,7 +48,7 @@ module.exports = class Stats {
   }
 
   opsPerSec() {
-    return 1e9 / this.mean();
+    return 1e3 / this.mean();
   }
 
   toString() {
