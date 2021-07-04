@@ -87,6 +87,6 @@ export class Benchmark {
       console.log(`${result.title}: ${result.stats.toString()}`);
     }
 
-    return;
+    return mappedResults;
   }
 }
