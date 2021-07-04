@@ -7,7 +7,7 @@ Supports callback functions which return a promise.
 ## Usage
 
 ```js
-const Benchmark = require("tiny-benchy");
+const { Benchmark } = require("tiny-benchy");
 const suite = new Benchmark();
 
 suite.add("RegExp#test-async", async () => {
@@ -32,10 +32,14 @@ rank 2:  RegExp#test 552,486.19 opts/sec (mean: 0.002ms, stddev: 0.005ms, 50 sam
 
 ```ts
 declare class Benchmark {
-  constructor(iterations?: number)
-  add(title: string, callback: () => void | Promise<void>, iterations?: number): void
-  run(): Promise<void>
+  constructor(iterations?: number);
+  add(
+    title: string,
+    callback: () => void | Promise<void>,
+    iterations?: number
+  ): void;
+  run(): Promise<void>;
 }
 
-export = Benchmark
+export = Benchmark;
 ```

@@ -1,20 +1,23 @@
 import { Stats } from "./stats";
 import { now } from "./performance";
 
-async function runTest(callback, iterations) {
-  let stats = new Stats();
-
-  for (let i = 0; i < iterations; i++) {
-    const start = now();
-    await callback();
-    stats.add(now() - start);
-  }
-
-  return stats;
-}
-
 type TestCallback = (setupValues: any) => Promise<any> | any;
 type SetupFn = () => Promise<any> | any;
+
+async function runTest(
+  callback,
+  opts: { iterations: number; setup?: SetupFn | null }
+) {
+  const { iterations, setup } = opts;
+  const stats = new Stats();
+  for (let i = 0; i < iterations; i++) {
+    const input = setup ? await setup() : null;
+    const start = now();
+    await callback(input);
+    stats.add(now() - start);
+  }
+  return stats;
+}
 
 interface ITest {
   title: string;
@@ -23,11 +26,17 @@ interface ITest {
   iterations: number;
 }
 
+interface IResult {
+  title: string;
+  stats: Stats;
+}
+
 export class Benchmark {
   iterations: number;
   tests: Array<ITest>;
 
-  constructor(iterations = 50) {
+  constructor(opts: { iterations: number }) {
+    const { iterations = 50 } = opts;
     this.tests = [];
     this.iterations = iterations;
   }
@@ -35,9 +44,12 @@ export class Benchmark {
   add(
     title: string,
     callback: TestCallback,
-    iterations?: number | null,
-    setup?: SetupFn | null
+    opts: {
+      iterations?: number | null;
+      setup?: SetupFn | null;
+    } = {}
   ) {
+    const { setup, iterations } = opts;
     this.tests.push({
       title,
       callback,
@@ -46,32 +58,35 @@ export class Benchmark {
     });
   }
 
-  async run() {
+  async run(): Promise<Array<IResult>> {
     const testNum = this.tests.length;
     if (!testNum) {
-      throw new Error("No tests have been defined!");
+      throw new Error("No tests defined");
     }
 
     const testResultsArray = new Array(testNum);
     for (let iTest = 0; iTest < testNum; ++iTest) {
       const test = this.tests[iTest];
-      const testResult = await runTest(test.callback, test.iterations);
+      const testResult = await runTest(test.callback, {
+        setup: test.setup,
+        iterations: test.iterations,
+      });
       testResultsArray[iTest] = testResult;
     }
 
-    const sortedTestResultsArray = testResultsArray.sort(
-      (test1, test2) => test2.opsPerSec() - test1.opsPerSec()
+    const mappedResults: Array<IResult> = testResultsArray.map(
+      (value, index) => {
+        return {
+          title: this.tests[index].title,
+          stats: value,
+        };
+      }
     );
 
-    for (let iRank = 0; iRank < testNum; ++iRank) {
-      const iTest = sortedTestResultsArray.indexOf(testResultsArray[iRank]);
-      console.log(
-        `rank ${iRank + 1}: `,
-        this.tests[iTest].title,
-        sortedTestResultsArray[iTest].toString()
-      );
+    for (let result of mappedResults) {
+      console.log(`${result.title}: ${result.stats.toString()}`);
     }
+
+    return;
   }
 }
-
-export default Benchmark;
